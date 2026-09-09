@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>化學式翻譯機 — 國中數學．自然教學網</title>
+<link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../../index.html"><span class="logo">學</span>國中數學．自然</a>
+    <nav class="nav">
+      <a href="../../index.html">首頁</a>
+      <a href="formula.html" class="active">化學式翻譯機</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">自然 · 理化 · 第一單元</div>
+    <h1>化學式翻譯機</h1>
+    <p>輸入任何化學式，立刻得到中文名稱、組成元素在週期表上的位置、每個元素的氧化數與常見價數，
+       以及這個化合物是靠什麼鍵結合起來的。點週期表上的元素也可以直接查。</p>
+  </section>
+
+  <section class="card">
+    <div class="search-row">
+      <input id="formula-input" type="text" placeholder="例如：H2SO4、Ca(OH)2、Fe2(SO4)3、CuSO4·5H2O"
+             autocomplete="off" spellcheck="false" inputmode="text">
+      <button id="search-btn" class="btn">翻譯</button>
+    </div>
+    <div class="chips-label">試試這些：</div>
+    <div class="chips">
+      <button class="chip" data-f="H2O">H2O</button>
+      <button class="chip" data-f="CO2">CO2</button>
+      <button class="chip" data-f="NaCl">NaCl</button>
+      <button class="chip" data-f="Ca(OH)2">Ca(OH)2</button>
+      <button class="chip" data-f="H2SO4">H2SO4</button>
+      <button class="chip" data-f="NaHCO3">NaHCO3</button>
+      <button class="chip" data-f="CaCO3">CaCO3</button>
+      <button class="chip" data-f="Fe2O3">Fe2O3</button>
+      <button class="chip" data-f="FeSO4">FeSO4</button>
+      <button class="chip" data-f="Fe2(SO4)3">Fe2(SO4)3</button>
+      <button class="chip" data-f="KMnO4">KMnO4</button>
+      <button class="chip" data-f="NH4NO3">NH4NO3</button>
+      <button class="chip" data-f="N2O5">N2O5</button>
+      <button class="chip" data-f="CuSO4·5H2O">CuSO4·5H2O</button>
+      <button class="chip" data-f="C6H12O6">C6H12O6</button>
+      <button class="chip" data-f="Fe">Fe</button>
+    </div>
+  </section>
+
+  <div id="result"></div>
+
+  <section class="card">
+    <h2>週期表上的位置</h2>
+    <div class="card-sub">藍色標示的就是這個化學式用到的元素，右上角的數字是原子個數。點任一格可查該元素。</div>
+    <div class="pt-wrap" id="periodic-wrap"></div>
+  </section>
+
+  <section class="card">
+    <h2>中文命名的三條主線</h2>
+    <div class="grid grid-3">
+      <div>
+        <h3 style="font-size:.98rem;margin:0 0 6px">① 離子化合物</h3>
+        <p style="margin:0;color:var(--muted);font-size:.9rem">
+          金屬 ＋ 非金屬（或酸根）。念法是<strong>反過來念</strong>：<br>
+          NaCl → 氯化鈉、CaCO₃ → 碳酸鈣、NaOH → 氫氧化鈉。<br>
+          金屬有兩種價數時，低價加「亞」：FeCl₂ 氯化亞鐵、FeCl₃ 氯化鐵。
+        </p>
+      </div>
+      <div>
+        <h3 style="font-size:.98rem;margin:0 0 6px">② 共價化合物</h3>
+        <p style="margin:0;color:var(--muted);font-size:.9rem">
+          非金屬 ＋ 非金屬，要把<strong>個數念出來</strong>：<br>
+          CO → 一氧化碳、CO₂ → 二氧化碳、<br>
+          N₂O₅ → 五氧化二氮、P₂O₅ → 五氧化二磷。<br>
+          後面的元素個數一定寫，前面的只有大於 1 才寫。
+        </p>
+      </div>
+      <div>
+        <h3 style="font-size:.98rem;margin:0 0 6px">③ 酸</h3>
+        <p style="margin:0;color:var(--muted);font-size:.9rem">
+          H 開頭。含氧酸直接叫酸名：H₂SO₄ 硫酸、HNO₃ 硝酸。<br>
+          不含氧的叫「X 化氫」，水溶液另有名字：<br>
+          HCl 氯化氫（水溶液＝鹽酸）。
+        </p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">國中數學．自然教學網 — 化學式翻譯機。資料檔在 <code>assets/js/data/</code>，可自行增修。</div>
+</footer>
+
+<script src="../../assets/js/data/elements.js"></script>
+<script src="../../assets/js/data/ions.js"></script>
+<script src="../../assets/js/data/compounds.js"></script>
+<script src="../../assets/js/chem/parser.js"></script>
+<script src="../../assets/js/chem/namer.js"></script>
+<script src="../../assets/js/ui/periodic.js"></script>
+<script src="../../assets/js/pages/formula.js"></script>
+</body>
+</html>

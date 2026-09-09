@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>國中數學．自然教學網</title>
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="index.html"><span class="logo">學</span>國中數學．自然</a>
+    <nav class="nav">
+      <a href="index.html" class="active">首頁</a>
+      <a href="subjects/chemistry/formula.html">化學式翻譯機</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">JUNIOR HIGH · MATH &amp; SCIENCE</div>
+    <h1>把課本裡難記的東西，變成可以動手玩的工具</h1>
+    <p>這是一個持續增建中的國中教學網站。每個單元都是一個獨立的小工具或講義頁，
+       想到什麼就加什麼，資料與程式分開放，增添內容只要改資料檔。</p>
+  </section>
+
+  <section>
+    <h2 style="font-size:1.1rem;margin:0 0 14px">自然 — 理化</h2>
+    <div class="grid grid-3">
+
+      <a class="unit" href="subjects/chemistry/formula.html">
+        <span class="tag tag-sci">化學</span>
+        <h3>化學式翻譯機</h3>
+        <p>輸入化學式 → 中文名稱、週期表位置、氧化數與價數、鍵結類型，還會說明命名是怎麼推出來的。</p>
+      </a>
+
+      <div class="unit soon">
+        <span class="tag tag-sci">化學</span>
+        <h3>化學反應式配平<span style="color:var(--muted);font-weight:400">（規劃中）</span></h3>
+        <p>輸入反應物與生成物，自動配平並解釋質量守恆。</p>
+      </div>
+
+      <div class="unit soon">
+        <span class="tag tag-sci">物理</span>
+        <h3>力學公式互動<span style="color:var(--muted);font-weight:400">（規劃中）</span></h3>
+        <p>速度、加速度、功與能，用滑桿即時看圖形怎麼變。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section style="margin-top:34px">
+    <h2 style="font-size:1.1rem;margin:0 0 14px">數學</h2>
+    <div class="grid grid-3">
+
+      <div class="unit soon">
+        <span class="tag tag-math">代數</span>
+        <h3>一元二次方程式<span style="color:var(--muted);font-weight:400">（規劃中）</span></h3>
+        <p>輸入係數，看解法步驟、判別式與拋物線圖形。</p>
+      </div>
+
+      <div class="unit soon">
+        <span class="tag tag-math">幾何</span>
+        <h3>三角形與圓<span style="color:var(--muted);font-weight:400">（規劃中）</span></h3>
+        <p>互動作圖，觀察角度與邊長的關係。</p>
+      </div>
+
+      <div class="unit soon">
+        <span class="tag tag-math">統計</span>
+        <h3>資料整理與統計圖<span style="color:var(--muted);font-weight:400">（規劃中）</span></h3>
+        <p>貼上一組數據，自動算出平均數、中位數、眾數並畫圖。</p>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="card" style="margin-top:34px">
+    <h2>要新增內容？</h2>
+    <ul class="explain">
+      <li>新增<strong>化合物</strong>：編輯 <code>assets/js/data/compounds.js</code>，加一列 <code>['化學式', '中文名', '俗名', '說明']</code>。</li>
+      <li>新增<strong>根離子</strong>：編輯 <code>assets/js/data/ions.js</code>。</li>
+      <li>修改<strong>元素資料</strong>：編輯 <code>assets/js/data/elements.js</code>。</li>
+      <li>新增<strong>單元頁</strong>：在 <code>subjects/</code> 底下複製一個 HTML，再回到本頁加一張卡片。</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">國中數學．自然教學網 — 純靜態網頁，直接用瀏覽器打開即可使用，不需要架伺服器。</div>
+</footer>
+
+</body>
+</html>

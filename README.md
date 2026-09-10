@@ -112,6 +112,11 @@ assets/js/pages/quadratic.js     方程式頁面的畫面組裝
 所以頁面比的是「口訣捷徑 vs 台灣課本流程」，不是「印度課本 vs 台灣課本」，
 頁面上也有一段話明講這件事，避免學生誤會。
 
+### 延伸閱讀連結
+
+標題區下方放了一條花拉子米（al-Khwārizmī）的維基連結，用意是接上配方法的來歷。
+要加別的連結，複製 `subjects/math/quadratic.html` 裡的 `<p class="hero-link">` 即可。
+
 要改比較表的內容，找 `assets/js/pages/quadratic.js` 裡的 `compareCard()`。
 要新增或修改解法說明，找 `assets/js/math/quadratic.js` 裡的 `twMethods()` 與 `inMethods()`。
 

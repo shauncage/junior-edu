@@ -85,9 +85,18 @@ a:hover { text-decoration: underline; }
 .hero h1 { font-size: 2rem; margin: 0 0 8px; letter-spacing: -.02em; }
 .hero p { margin: 0; color: var(--muted); font-size: 1.02rem; max-width: 62ch; }
 
+/* 標題區底下的延伸閱讀 */
+.hero-link {
+  margin: 16px 0 0; max-width: 62ch; font-size: .92rem; color: var(--muted);
+  padding-left: 13px; border-left: 3px solid var(--border);
+}
+.hero-link a { font-weight: 700; }
+.hero-link .ext { font-size: .82em; margin-left: 3px; }
+
 /* 中文長段落：左右對齊，斷行時避開行首標點，最後一行不要只剩一兩個字。
    （行末是 <br> 的那行不會被拉開，所以有手動換行的區塊也安全） */
 .hero p,
+.hero-link,
 .card > p,
 .card-sub,
 .grid p,

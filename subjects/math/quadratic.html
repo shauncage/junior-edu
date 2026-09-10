@@ -31,13 +31,11 @@
 
   <section class="card">
     <div class="coef-row">
-      <div class="coef-cell"><input id="coef-a" type="text" value="1" inputmode="text" autocomplete="off" spellcheck="false"><span class="lbl">a</span></div>
-      <span>x²　+</span>
-      <div class="coef-cell"><input id="coef-b" type="text" value="-5" inputmode="text" autocomplete="off" spellcheck="false"><span class="lbl">b</span></div>
-      <span>x　+</span>
-      <div class="coef-cell"><input id="coef-c" type="text" value="6" inputmode="text" autocomplete="off" spellcheck="false"><span class="lbl">c</span></div>
-      <span>＝ 0</span>
+      <label class="coef-cell" for="coef-a"><span class="lbl">a</span><span class="eq">=</span><input id="coef-a" type="text" value="1" inputmode="text" autocomplete="off" spellcheck="false"></label>
+      <label class="coef-cell" for="coef-b"><span class="lbl">b</span><span class="eq">=</span><input id="coef-b" type="text" value="-5" inputmode="text" autocomplete="off" spellcheck="false"></label>
+      <label class="coef-cell" for="coef-c"><span class="lbl">c</span><span class="eq">=</span><input id="coef-c" type="text" value="6" inputmode="text" autocomplete="off" spellcheck="false"></label>
     </div>
+    <div class="eq-echo" id="eq-echo"></div>
     <div class="chips-label">改動任一個格子就會即時重算。可以填整數、小數（0.5）或分數（1/2）；b、c 留白當作 0。試試這些：</div>
     <div class="chips">
       <button class="chip" data-a="1"   data-b="-5"  data-c="6">x²−5x+6</button>

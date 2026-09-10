@@ -305,19 +305,25 @@ ul.explain strong { color: var(--accent); }
 .math-big { font-size: 1.5rem; }
 
 /* ---------- 係數輸入 ---------- */
+/* 標籤放在格子左邊（a = □），整列維持在同一行 */
 .coef-row {
-  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  display: flex; align-items: center; gap: 22px; flex-wrap: wrap;
   font-size: 1.45rem; font-weight: 600;
 }
 .coef-row input {
-  width: 88px; font-size: 1.35rem; text-align: center; padding: 9px 6px;
+  width: 92px; font-size: 1.35rem; text-align: center; padding: 9px 6px;
   border: 1.5px solid var(--border); border-radius: 11px;
   background: var(--surface); color: var(--text);
   font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
 }
 .coef-row input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-.coef-row .lbl { font-size: .72rem; color: var(--muted); font-weight: 600; }
-.coef-cell { display: flex; flex-direction: column; align-items: center; gap: 3px; }
+.coef-cell { display: inline-flex; align-items: center; gap: 8px; cursor: text; }
+.coef-row .lbl { font-size: 1.3rem; font-weight: 700; font-style: italic; color: var(--accent); }
+.coef-row .eq { font-size: 1.2rem; color: var(--muted); font-weight: 400; }
+
+/* 三個係數組出來的式子，即時跟著變 */
+.eq-echo { margin-top: 16px; font-size: 1.4rem; font-weight: 700; min-height: 1.4em; }
+.eq-echo .arrow { color: var(--muted); font-weight: 400; margin-right: 10px; }
 
 /* ---------- 解法卡片 ---------- */
 .method {
@@ -380,6 +386,8 @@ svg.plot text { font-family: inherit; }
 .stat .stat-v { font-size: 1.25rem; font-weight: 700; margin-top: 2px; }
 
 @media (max-width: 640px) {
-  .coef-row { font-size: 1.15rem; }
-  .coef-row input { width: 68px; font-size: 1.1rem; }
+  .coef-row { font-size: 1.15rem; gap: 14px; }
+  .coef-row input { width: 72px; font-size: 1.1rem; }
+  .coef-row .lbl { font-size: 1.1rem; }
+  .eq-echo { font-size: 1.15rem; }
 }

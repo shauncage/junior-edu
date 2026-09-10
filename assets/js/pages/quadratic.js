@@ -11,6 +11,7 @@
   var $ = function (s) { return document.querySelector(s); };
   var inA = $('#coef-a'), inB = $('#coef-b'), inC = $('#coef-c');
   var resultBox = $('#result');
+  var echoBox = $('#eq-echo');
 
   function esc(s) {
     return String(s).replace(/[&<>]/g, function (c) {
@@ -214,7 +215,9 @@
 
   function run() {
     var r = Q.solve(inA.value, inB.value, inC.value);
-    if (!r.ok) { showError(r.error); return; }
+    if (!r.ok) { echoBox.innerHTML = ''; showError(r.error); return; }
+    // 三個格子拼出來的式子，就寫在輸入區底下
+    echoBox.innerHTML = '<span class="arrow">→</span><span class="math">' + r.givenEqHTML + '</span>';
     render(r);
     try {
       history.replaceState(null, '', '?a=' + encodeURIComponent(inA.value) +
@@ -240,9 +243,12 @@
     });
   });
 
-  /* 初始：網址帶參數就用，否則給一題經典的 */
+  /* 初始：網址帶參數就用，否則給一題經典的。
+     要用 has() 而不是 ||，不然使用者把 b 清空後（網址寫成 b=）重新整理，
+     空字串會被當成「沒給」而套回預設值。 */
   var p = new URLSearchParams(location.search);
-  setCoefs(p.get('a') || '1', p.get('b') || '-5', p.get('c') || '6');
+  var pick = function (k, dflt) { return p.has(k) ? p.get(k) : dflt; };
+  setCoefs(pick('a', '1'), pick('b', '-5'), pick('c', '6'));
   inA.focus();
   inA.select();
 })();

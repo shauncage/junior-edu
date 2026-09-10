@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>一元二次方程式 — 國中數學．自然教學網</title>
+<link rel="stylesheet" href="../../assets/css/app.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../../index.html"><span class="logo">學</span>國中數學．自然</a>
+    <nav class="nav">
+      <a href="../../index.html">首頁</a>
+      <a href="../chemistry/formula.html">化學式翻譯機</a>
+      <a href="quadratic.html" class="active">一元二次方程式</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">數學 · 代數 · 第一單元</div>
+    <h1>一元二次方程式</h1>
+    <p>填入 a、b、c 三個係數，立刻看到解、判別式、頂點與圖形，
+       還有<strong>台灣課本的三種解法</strong>與<strong>印度式（吠陀數學）的四種解法</strong>並排比較 —
+       同一題，看兩種文化怎麼教。</p>
+  </section>
+
+  <section class="card">
+    <div class="coef-row">
+      <div class="coef-cell"><input id="coef-a" type="text" value="1" inputmode="text" autocomplete="off" spellcheck="false"><span class="lbl">a</span></div>
+      <span>x²　+</span>
+      <div class="coef-cell"><input id="coef-b" type="text" value="-5" inputmode="text" autocomplete="off" spellcheck="false"><span class="lbl">b</span></div>
+      <span>x　+</span>
+      <div class="coef-cell"><input id="coef-c" type="text" value="6" inputmode="text" autocomplete="off" spellcheck="false"><span class="lbl">c</span></div>
+      <span>＝ 0</span>
+      <button id="solve-btn" class="btn" style="margin-left:8px">解</button>
+    </div>
+    <div class="chips-label">可以填整數、小數（0.5）或分數（1/2）；b、c 留白當作 0。試試這些：</div>
+    <div class="chips">
+      <button class="chip" data-a="1"   data-b="-5"  data-c="6">x²−5x+6</button>
+      <button class="chip" data-a="2"   data-b="-7"  data-c="3">2x²−7x+3</button>
+      <button class="chip" data-a="1"   data-b="2"   data-c="-15">x²+2x−15</button>
+      <button class="chip" data-a="3"   data-b="-2"  data-c="-1">3x²−2x−1</button>
+      <button class="chip" data-a="5"   data-b="-7"  data-c="2">5x²−7x+2</button>
+      <button class="chip" data-a="1"   data-b="1"   data-c="-2">x²+x−2</button>
+      <button class="chip" data-a="1"   data-b="-4"  data-c="4">x²−4x+4</button>
+      <button class="chip" data-a="1"   data-b="2"   data-c="5">x²+2x+5</button>
+      <button class="chip" data-a="1"   data-b="-2"  data-c="-1">x²−2x−1</button>
+      <button class="chip" data-a="1"   data-b="0"   data-c="-3">x²−3</button>
+      <button class="chip" data-a="6"   data-b="1"   data-c="-35">6x²+x−35</button>
+      <button class="chip" data-a="1"   data-b="3"   data-c="0">x²+3x</button>
+      <button class="chip" data-a="0.5" data-b="-1"  data-c="-4">½x²−x−4</button>
+      <button class="chip" data-a="-1"  data-b="4"   data-c="-3">−x²+4x−3</button>
+    </div>
+  </section>
+
+  <div id="result"></div>
+
+  <section class="card">
+    <h2>判別式在講什麼</h2>
+    <div class="card-sub">判別式 D = b² − 4ac 就是公式解裡根號底下那一塊，它決定了拋物線和 x 軸的關係。</div>
+    <div class="grid grid-3">
+      <div>
+        <h3 style="font-size:.98rem;margin:0 0 6px">D &gt; 0</h3>
+        <p style="margin:0;color:var(--muted);font-size:.9rem">
+          根號開得出來而且不是 0，± 之後得到<strong>兩個不同的答案</strong>。<br>
+          圖形<strong>穿過 x 軸兩次</strong>。<br>
+          例：x² − 5x + 6 = 0，D = 1。
+        </p>
+      </div>
+      <div>
+        <h3 style="font-size:.98rem;margin:0 0 6px">D = 0</h3>
+        <p style="margin:0;color:var(--muted);font-size:.9rem">
+          ± 0 之後兩個答案變成同一個，叫做<strong>重根</strong>。<br>
+          圖形<strong>剛好碰到 x 軸一點</strong>（頂點就在 x 軸上）。<br>
+          例：x² − 4x + 4 = 0，D = 0。
+        </p>
+      </div>
+      <div>
+        <h3 style="font-size:.98rem;margin:0 0 6px">D &lt; 0</h3>
+        <p style="margin:0;color:var(--muted);font-size:.9rem">
+          負數開不出實數平方根 → <strong>沒有實數解</strong>。<br>
+          圖形<strong>整條在 x 軸的同一側</strong>，碰不到。<br>
+          例：x² + 2x + 5 = 0，D = −16。
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>吠陀數學的口訣從哪來</h2>
+    <p style="margin:0 0 10px">
+      「印度式數學」在台灣通常指 <strong>Vedic Mathematics（吠陀數學）</strong>，
+      是印度學者 Bharati Krishna Tirtha 整理、1965 年出版的一套心算方法，
+      核心是 16 條梵文口訣（sūtra），例如「Vilokanam（由觀察）」、「Calana-kalana（連續變化）」。
+      它強調<strong>先看數字的模式，再決定怎麼算</strong>，很多題目可以一行寫完。
+    </p>
+    <ul class="explain">
+      <li>它是<strong>心算技巧的集合</strong>，不是印度學校的正式課本。印度課本（NCERT）一樣教公式解與配方法。</li>
+      <li>真正和台灣課本明顯不同的，是因式分解：印度習慣寫成<strong>分裂中項</strong>（把 b 拆成兩個數再分組提公因式），
+          台灣用<strong>十字相乘</strong>的交叉圖。兩者湊的是同一組數字，只是呈現方式不同。</li>
+      <li>吠陀口訣的價值在<strong>速度與檢查</strong>：選擇題、估算、驗算特別好用；
+          需要完整寫出過程的計算題，還是回到公式解最穩。</li>
+      <li>學校教學上最實用的兩條：<strong>a + b + c = 0 → 必有一根是 1</strong>、
+          <strong>a − b + c = 0 → 必有一根是 −1</strong>。看到就先試，省下整套公式解。</li>
+    </ul>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">國中數學．自然教學網 — 一元二次方程式。解法邏輯在 <code>assets/js/math/quadratic.js</code>，可自行增修。</div>
+</footer>
+
+<script src="../../assets/js/math/num.js"></script>
+<script src="../../assets/js/math/quadratic.js"></script>
+<script src="../../assets/js/ui/plot.js"></script>
+<script src="../../assets/js/pages/quadratic.js"></script>
+</body>
+</html>

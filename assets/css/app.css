@@ -83,11 +83,11 @@ a:hover { text-decoration: underline; }
 /* ---------- 標題區 ---------- */
 .hero { padding: 46px 0 30px; }
 .hero h1 { font-size: 2rem; margin: 0 0 8px; letter-spacing: -.02em; }
-.hero p { margin: 0; color: var(--muted); font-size: 1.02rem; max-width: 62ch; }
+.hero p { margin: 0; color: var(--muted); font-size: 1.02rem; }
 
 /* 標題區底下的延伸閱讀 */
 .hero-link {
-  margin: 16px 0 0; max-width: 62ch; font-size: .92rem; color: var(--muted);
+  margin: 16px 0 0; font-size: .92rem; color: var(--muted);
   padding-left: 13px; border-left: 3px solid var(--border);
 }
 .hero-link a { font-weight: 700; }

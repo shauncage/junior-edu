@@ -291,12 +291,9 @@ ul.explain strong { color: var(--accent); }
    ============================================================= */
 
 /* ---------- 分數與根號的排版 ---------- */
-.frac {
-  display: inline-flex; flex-direction: column; align-items: center;
-  vertical-align: -0.48em; margin: 0 2px; line-height: 1.2; font-size: .92em;
-}
-.frac > span:first-child { border-bottom: 1.4px solid currentColor; padding: 0 5px 1px; }
-.frac > span:last-child { padding: 1px 5px 0; }
+/* 分數一律橫式（3/4），行高才不會忽高忽低，整段式子也能維持在同一行 */
+.frac { white-space: nowrap; }
+.frac .sl { padding: 0 1px; opacity: .65; }
 
 .sqrt { white-space: nowrap; }
 .sqrt > .rad { border-top: 1.4px solid currentColor; padding: 1px 3px 0 1px; margin-left: -1px; }

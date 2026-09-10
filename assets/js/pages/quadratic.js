@@ -228,7 +228,7 @@
   }
 
   /* ---------- 事件 ---------- */
-  $('#solve-btn').addEventListener('click', run);
+  /* 三個格子都是打字就重算，所以不需要「解」的按鈕 */
   [inA, inB, inC].forEach(function (el) {
     el.addEventListener('keydown', function (e) { if (e.key === 'Enter') run(); });
     el.addEventListener('input', run);

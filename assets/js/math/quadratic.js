@@ -43,7 +43,8 @@
       var neg = f.n < 0;
       var mag = M.frac(Math.abs(f.n), f.d);
       var sign = isFirst ? (neg ? MINUS : '') : (neg ? ' ' + MINUS + ' ' : ' + ');
-      var num = (mag.n === 1 && mag.d === 1 && varPart) ? '' : M.fracHTML(mag);
+      var num = (mag.n === 1 && mag.d === 1 && varPart)
+        ? '' : (varPart ? M.fracCoefHTML(mag) : M.fracHTML(mag));
       return sign + num + varPart;
     }
     var s = ft(fa, 'x²', true);
@@ -52,10 +53,13 @@
     return s === '' ? '0' : s;
   }
 
-  /* 接在式子後面的一項分數，自己帶正負號： + 3/2 或 − 3/2 */
-  function plusFrac(f) {
+  /* 接在式子後面的一項分數，自己帶正負號： + 3/2 或 − 3/2。
+     isCoef 表示後面還會接 x，那就得寫成 (3/2)x 才不會被讀成 3/(2x)。 */
+  function plusFrac(f, isCoef) {
     if (f.n === 0) return '';
-    return (f.n < 0 ? ' ' + MINUS + ' ' : ' + ') + M.fracHTML(M.frac(Math.abs(f.n), f.d));
+    var mag = M.frac(Math.abs(f.n), f.d);
+    return (f.n < 0 ? ' ' + MINUS + ' ' : ' + ') +
+           (isCoef ? M.fracCoefHTML(mag) : M.fracHTML(mag));
   }
 
   /* √D 要怎麼寫：開得盡就直接寫整數，開不盡才留根號 */
@@ -158,16 +162,16 @@
 
     /* ① 公式解 */
     var f = ['把 <b>a = ' + M.numStr(a) + '</b>、<b>b = ' + M.numStr(b) + '</b>、<b>c = ' + M.numStr(c) +
-             '</b> 代進公式 x = <span class="frac"><span>' + MINUS + 'b ± ' + M.sqrtHTML('b² ' + MINUS + ' 4ac') +
-             '</span><span>2a</span></span>。',
+             '</b> 代進公式 x = ' +
+               M.ratioHTML(MINUS + 'b ± ' + M.sqrtHTML('b² ' + MINUS + ' 4ac'), '2a') + '。',
              '先算判別式：b² ' + MINUS + ' 4ac = (' + M.numStr(b) + ')² ' + MINUS + ' 4·(' + M.numStr(a) +
-             ')·(' + M.numStr(c) + ') = ' + M.numStr(b * b) + ' ' + MINUS + ' ' + M.numStr(4 * a * c) +
+             ')·(' + M.numStr(c) + ') = ' + M.numStr(b * b) + ' ' + MINUS + ' ' + M.parenNeg(4 * a * c) +
              ' = <b>' + M.numStr(D) + '</b>。'];
     if (D < 0) {
       f.push('判別式是負的，負數開不出實數平方根 → <b>沒有實數解</b>（圖形整條在 x 軸的同一側）。');
     } else {
-      f.push('代回去：x = <span class="frac"><span>' + M.numStr(-b) + ' ± ' +
-             M.sqrtHTML(M.numStr(D)) + '</span><span>' + M.numStr(2 * a) + '</span></span>' +
+      f.push('代回去：x = ' +
+             M.ratioHTML(M.numStr(-b) + ' ± ' + M.sqrtHTML(M.numStr(D)), M.numStr(2 * a)) +
              (sq.r === 1
                ? '，而 ' + M.sqrtHTML(M.numStr(D)) + ' = <b>' + M.numStr(sq.k) + '</b>（開得盡）'
                : sq.k !== 1
@@ -182,9 +186,9 @@
     /* ② 配方法 */
     var cs = [];
     cs.push('原式：' + polyHTML(a, b, c) + ' = 0');
-    if (a !== 1) cs.push('兩邊同除以 a = ' + M.numStr(a) + '：x²' + plusFrac(M.frac(b, a)) +
+    if (a !== 1) cs.push('兩邊同除以 a = ' + M.numStr(a) + '：x²' + plusFrac(M.frac(b, a), true) +
                          'x' + plusFrac(M.frac(c, a)) + ' = 0');
-    cs.push('常數移到右邊：x²' + plusFrac(M.frac(b, a)) + 'x = ' + M.fracHTML(M.frac(-c, a)));
+    cs.push('常數移到右邊：x²' + plusFrac(M.frac(b, a), true) + 'x = ' + M.fracHTML(M.frac(-c, a)));
     var half = M.frac(b, 2 * a);
     cs.push('取一次項係數的一半 <b>' + M.fracHTML(half) + '</b>，平方後 <b>' +
             M.fracHTML(M.fMul(half, half)) + '</b>，兩邊同加。');
@@ -210,10 +214,10 @@
       out.cross = {
         title: '十字相乘法',
         steps: [
-          '把 a = ' + M.numStr(a) + ' 拆成 ' + M.numStr(F.p) + ' × ' + M.numStr(F.s) +
-            '，c = ' + M.numStr(c) + ' 拆成 ' + M.numStr(F.q) + ' × ' + M.numStr(F.t) + '。',
-          '交叉相乘再相加：' + M.numStr(F.p) + '×' + M.numStr(F.t) + ' + ' + M.numStr(F.q) + '×' +
-            M.numStr(F.s) + ' = ' + M.numStr(F.p * F.t) + ' + ' + M.numStr(F.q * F.s) +
+          '把 a = ' + M.numStr(a) + ' 拆成 ' + M.parenNeg(F.p) + ' × ' + M.parenNeg(F.s) +
+            '，c = ' + M.numStr(c) + ' 拆成 ' + M.parenNeg(F.q) + ' × ' + M.parenNeg(F.t) + '。',
+          '交叉相乘再相加：' + M.parenNeg(F.p) + '×' + M.parenNeg(F.t) + ' + ' + M.parenNeg(F.q) + '×' +
+            M.parenNeg(F.s) + ' = ' + M.parenNeg(F.p * F.t) + ' + ' + M.parenNeg(F.q * F.s) +
             ' = <b>' + M.numStr(b) + '</b>，剛好等於中間那項的係數，湊對了。',
           '所以 ' + polyHTML(a, b, c) + ' = ' + linHTML(F.p, F.q) + linHTML(F.s, F.t) + '。',
           '兩個括號各自等於 0：<b>x = ' + M.surdHTML(M.surd(-F.q, 0, 1, F.p)) + '</b>' +
@@ -251,7 +255,7 @@
         title: '分裂中項法',
         sanskrit: 'Splitting the Middle Term',
         steps: [
-          '先看 a × c = ' + M.numStr(a) + ' × ' + M.numStr(c) + ' = <b>' + M.numStr(a * c) + '</b>。',
+          '先看 a × c = ' + M.parenNeg(a) + ' × ' + M.parenNeg(c) + ' = <b>' + M.numStr(a * c) + '</b>。',
           '找兩個數，<b>相乘等於 ' + M.numStr(a * c) + '，相加等於 b = ' + M.numStr(b) +
             '</b> → 找到 <b>' + M.numStr(F.m) + '</b> 和 <b>' + M.numStr(F.n) + '</b>。',
           '把中間那項拆成這兩項重寫：' + polyHTML(a, b, c) + ' = ' +
@@ -274,8 +278,8 @@
         title: '觀察法（Vilokanam）',
         sanskrit: 'Vilokanam — 「由觀察」',
         steps: [
-          '先加加看：a + b + c = ' + M.numStr(a) + ' + (' + M.numStr(b) + ') + (' + M.numStr(c) +
-            ') = <b>0</b>。',
+          '先加加看：a + b + c = ' + M.numStr(a) + ' + ' + M.parenNeg(b) + ' + ' + M.parenNeg(c) +
+            ' = <b>0</b>。',
           '係數相加是 0，代表 <b>x = 1</b> 一定是一個根（把 1 代進去就是 a+b+c）。',
           '另一個根用「兩根相乘 = c/a」直接得到：<b>x = ' + M.fracHTML(r.prod) + '</b>。',
           '完全不用算判別式，兩秒看出答案。'
@@ -287,8 +291,8 @@
         title: '觀察法（Vilokanam）',
         sanskrit: 'Vilokanam — 「由觀察」',
         steps: [
-          '算算看：a ' + MINUS + ' b + c = ' + M.numStr(a) + ' ' + MINUS + ' (' + M.numStr(b) +
-            ') + (' + M.numStr(c) + ') = <b>0</b>。',
+          '算算看：a ' + MINUS + ' b + c = ' + M.numStr(a) + ' ' + MINUS + ' ' + M.parenNeg(b) +
+            ' + ' + M.parenNeg(c) + ' = <b>0</b>。',
           '這代表 <b>x = ' + MINUS + '1</b> 一定是一個根（把 ' + MINUS + '1 代進去就是 a−b+c）。',
           '另一個根 = ' + MINUS + 'c/a = <b>x = ' + M.fracHTML(M.frac(-r.prod.n, r.prod.d)) + '</b>。'
         ]

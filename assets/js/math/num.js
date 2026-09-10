@@ -37,11 +37,17 @@
     if (x.d === 1) return numStr(x.n);
     return (x.n < 0 ? MINUS : '') + Math.abs(x.n) + '/' + x.d;
   }
-  /* 分數的直式 HTML，負號放在分數線外面 */
+  /* 分數的橫式 HTML：3/4、−3/4、5 */
   function fracHTML(x) {
     if (x.d === 1) return numStr(x.n);
-    return (x.n < 0 ? MINUS : '') +
-      '<span class="frac"><span>' + Math.abs(x.n) + '</span><span>' + x.d + '</span></span>';
+    return '<span class="frac">' + (x.n < 0 ? MINUS : '') +
+      Math.abs(x.n) + '<span class="sl">/</span>' + x.d + '</span>';
+  }
+
+  /* 分數當成係數黏在變數前面時要加括號，(3/2)x 才不會看成 3/(2x) */
+  function fracCoefHTML(x) {
+    if (x.d === 1) return numStr(x.n);
+    return '(' + fracHTML(x) + ')';
   }
 
   function numStr(n) {
@@ -62,7 +68,10 @@
     return { k: k, r: r };
   }
   function sqrtHTML(r) {
-    return '<span class="sqrt">√<span class="rad">' + r + '</span></span>';
+    if (/^[0-9A-Za-z]+$/.test(String(r))) {
+      return '<span class="sqrt">√<span class="rad">' + r + '</span></span>';
+    }
+    return '<span class="sqrt">√(' + r + ')</span>';
   }
 
   /* ---------- 帶根號的數：(p + k√r) / q ---------- */
@@ -85,7 +94,21 @@
     var mag = Math.abs(s.k);
     num += (mag === 1 ? '' : mag) + sqrtHTML(s.r);
     if (s.q === 1) return num;
-    return '<span class="frac"><span>' + num + '</span><span>' + s.q + '</span></span>';
+    // 分子有加減，橫式就一定要括號
+    return '<span class="frac">(' + num + ')<span class="sl">/</span>' + s.q + '</span>';
+  }
+
+  /* 橫式的分數：(分子) / 分母，分子是整串式子時用得到。
+     分母是負數也要加括號，不然會寫成 /−2。 */
+  function ratioHTML(numer, denom) {
+    var d = String(denom);
+    if (d.charAt(0) === MINUS || d.charAt(0) === '-') d = '(' + d + ')';
+    return '<span class="frac">(' + numer + ')<span class="sl">/</span>' + d + '</span>';
+  }
+
+  /* 負數放進算式裡要包括號，才不會出現 25 − −4 */
+  function parenNeg(n) {
+    return n < 0 ? '(' + numStr(n) + ')' : numStr(n);
   }
 
   /* ---------- 係數輸入：吃整數、小數、分數 ---------- */
@@ -116,7 +139,8 @@
     gcd: gcd, lcm: lcm,
     frac: frac, fAdd: fAdd, fSub: fSub, fMul: fMul, fDiv: fDiv, fNeg: fNeg,
     fVal: fVal, fIsInt: fIsInt, fIsZero: fIsZero,
-    fracStr: fracStr, fracHTML: fracHTML, numStr: numStr,
+    fracStr: fracStr, fracHTML: fracHTML, fracCoefHTML: fracCoefHTML,
+    ratioHTML: ratioHTML, parenNeg: parenNeg, numStr: numStr,
     simplifySqrt: simplifySqrt, sqrtHTML: sqrtHTML,
     surd: surd, surdVal: surdVal, surdIsRational: surdIsRational, surdHTML: surdHTML,
     parseCoef: parseCoef

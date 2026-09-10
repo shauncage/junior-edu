@@ -359,23 +359,28 @@ table.data td.yes { color: var(--ok); font-weight: 700; }
 table.data td.no { color: var(--muted); }
 
 /* ---------- 拋物線圖 ---------- */
+/* 圖的底色固定白色，不跟著深色模式走 —— 座標圖是要拿來看線條和標籤的，
+   深色底下格線與細字會糊掉。因此以下顏色一律寫死，不用主題變數。 */
 .plot-wrap { overflow-x: auto; }
-svg.plot { width: 100%; min-width: 420px; height: auto; display: block; }
+svg.plot {
+  width: 100%; min-width: 420px; height: auto; display: block;
+  background: #ffffff; border: 1px solid #dfe3e8; border-radius: 10px;
+}
 svg.plot text { font-family: inherit; }
-.pl-grid { stroke: var(--border); stroke-width: 1; opacity: .55; }
-.pl-axis { stroke: var(--muted); stroke-width: 1.6; }
-.pl-axis-label { fill: var(--muted); font-size: 13px; font-style: italic; }
-.pl-tick { fill: var(--muted); font-size: 11px; text-anchor: middle; }
+.pl-grid { stroke: #dde2e8; stroke-width: 1; }
+.pl-axis { stroke: #5b6774; stroke-width: 1.6; }
+.pl-axis-label { fill: #5b6774; font-size: 13px; font-style: italic; }
+.pl-tick { fill: #6b7684; font-size: 11px; text-anchor: middle; }
 .pl-tick-y { text-anchor: end; }
-.pl-sym { stroke: var(--math); stroke-width: 1.4; stroke-dasharray: 5 5; opacity: .8; }
-.pl-curve { fill: none; stroke: var(--accent); stroke-width: 2.8; stroke-linecap: round; }
-.pl-root { fill: var(--danger); stroke: var(--surface); stroke-width: 2; }
-.pl-vertex { fill: var(--math); stroke: var(--surface); stroke-width: 2; }
-.pl-yint { fill: var(--sci); stroke: var(--surface); stroke-width: 2; }
+.pl-sym { stroke: #7c3aed; stroke-width: 1.4; stroke-dasharray: 5 5; opacity: .75; }
+.pl-curve { fill: none; stroke: #1f6feb; stroke-width: 2.8; stroke-linecap: round; }
+.pl-root { fill: #d92b2b; stroke: #ffffff; stroke-width: 2; }
+.pl-vertex { fill: #7c3aed; stroke: #ffffff; stroke-width: 2; }
+.pl-yint { fill: #0d9488; stroke: #ffffff; stroke-width: 2; }
 .pl-label { font-size: 12px; font-weight: 700; text-anchor: middle; }
-.pl-root-t { fill: var(--danger); }
-.pl-vertex-t { fill: var(--math); }
-.pl-yint-t { fill: var(--sci); }
+.pl-root-t { fill: #c62222; }
+.pl-vertex-t { fill: #6d28d9; }
+.pl-yint-t { fill: #0b7d72; }
 
 /* ---------- 摘要數字 ---------- */
 .stat-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }

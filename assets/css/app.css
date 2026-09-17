@@ -142,6 +142,7 @@ ul.explain li {
 }
 .tag-sci { background: rgba(13,148,136,.14); color: var(--sci); }
 .tag-math { background: rgba(124,58,237,.14); color: var(--math); }
+.tag-game { background: rgba(180,83,9,.16); color: var(--warn); }
 .unit h3 { margin: 0 0 6px; font-size: 1.08rem; }
 .unit p { margin: 0; color: var(--muted); font-size: .9rem; }
 .unit.soon { opacity: .62; pointer-events: none; }
@@ -417,4 +418,154 @@ svg.plot text { font-family: inherit; }
   .coef-row input { width: 72px; font-size: 1.1rem; }
   .coef-row .lbl { font-size: 1.1rem; }
   .eq-echo { font-size: 1.15rem; }
+}
+
+/* =============================================================
+   象棋單元
+   ============================================================= */
+
+/* ---------- 分頁 ---------- */
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin: 4px 0 18px; }
+.tab {
+  padding: 9px 15px; border-radius: 999px; border: 1px solid var(--border);
+  background: var(--surface); color: var(--muted); font-weight: 600;
+  font-size: .93rem; cursor: pointer; font-family: inherit;
+}
+.tab:hover { color: var(--text); }
+.tab.is-on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.panel { display: none; }
+.panel.is-on { display: block; }
+
+.xq-split { display: grid; grid-template-columns: minmax(290px, 420px) 1fr; gap: 18px; align-items: start; }
+@media (max-width: 860px) { .xq-split { grid-template-columns: 1fr; } }
+
+/* ---------- 棋盤 ----------
+   棋盤的顏色一律寫死，不跟著深色模式走：木色底配細線是象棋幾百年的樣子，
+   換成深色底之後棋子的紅黑就分不出來了。（跟拋物線圖固定白底是同樣的考量） */
+.xq-mount { max-width: 420px; margin: 0 auto; }
+.xq-board { position: relative; container-type: inline-size; }
+.xq-lines { display: block; width: 100%; height: auto; }
+.xq-felt { fill: #f2dcae; stroke: #cba96a; stroke-width: 3; }
+.xq-line { stroke: #8a6a3b; stroke-width: 3; fill: none; stroke-linecap: round; }
+.xq-star { stroke: #8a6a3b; stroke-width: 3; fill: none; stroke-linecap: round; opacity: .8; }
+.xq-river {
+  fill: #9a7440; font-size: 52px; font-weight: 600; letter-spacing: 12px;
+  text-anchor: middle; font-family: inherit;
+}
+.xq-file { font-size: 34px; font-weight: 700; text-anchor: middle; font-family: inherit; }
+.xq-file-r { fill: #b42318; }
+.xq-file-b { fill: #3a4654; }
+
+.xq-layer { position: absolute; inset: 0; }
+.xq-piece, .xq-dot, .xq-trace, .xq-mark {
+  position: absolute; transform: translate(-50%, -50%); padding: 0;
+}
+.xq-piece {
+  width: 34px; height: 34px; font-size: 1.05rem;             /* 舊瀏覽器的退路 */
+  width: 10.6cqw; height: 10.6cqw; font-size: 6.1cqw;
+  border-radius: 50%; background: #fdf3de; border: 1.5px solid #b98f52;
+  box-shadow: 0 1px 2px rgba(60, 40, 10, .35);
+  font-weight: 700; line-height: 1; font-family: inherit;
+  display: grid; place-items: center; cursor: default;
+}
+.xq-red { color: #b42318; }
+.xq-black { color: #22303f; border-color: #6b7684; }
+.xq-piece.is-sel { box-shadow: 0 0 0 3px #1f6feb, 0 1px 3px rgba(0,0,0,.3); }
+.xq-piece.is-target { box-shadow: 0 0 0 3px #d92b2b; cursor: pointer; }
+.xq-piece.is-check { box-shadow: 0 0 0 3px #d92b2b, 0 0 14px rgba(217,43,43,.7); }
+.xq-dot {
+  width: 14px; height: 14px;
+  width: 4.2cqw; height: 4.2cqw;
+  border: none; border-radius: 50%; background: rgba(21, 128, 61, .62); cursor: pointer;
+}
+.xq-dot:hover { background: rgba(21, 128, 61, .9); }
+.xq-trace {
+  width: 34px; height: 34px;
+  width: 10.6cqw; height: 10.6cqw;
+  border: 2px dashed rgba(31, 111, 235, .75); border-radius: 50%; pointer-events: none;
+}
+.xq-mark {
+  width: 30px; height: 30px;
+  width: 9.4cqw; height: 9.4cqw;
+  border: 2.5px solid #7c3aed; border-radius: 9px; pointer-events: none;
+}
+
+/* ---------- 版面小元件 ---------- */
+.btn-sm { padding: 8px 14px; font-size: .9rem; border-radius: 10px; }
+.chip.is-on { background: var(--accent); border-color: var(--accent); color: #fff; }
+.xq-group { display: block; width: 100%; font-size: .8rem; font-weight: 700; color: var(--muted); margin: 8px 0 0; }
+.xq-cap { font-size: .84rem; color: var(--muted); margin: 10px 2px 0; text-align: center; }
+.xq-p { margin: 0 0 10px; font-size: .94rem; text-align: justify; line-break: strict; }
+.grid .xq-p { color: var(--muted); }
+.xq-h3 { font-size: .98rem; margin: 0 0 6px; }
+.xq-motto { font-size: 1.05rem; font-weight: 700; color: var(--accent); margin: -4px 0 10px; }
+.xq-count { margin-top: 12px; font-size: .88rem; color: var(--muted); }
+.xq-count code, .xq-note code, .xq-status code, .xq-quiz-msg code {
+  font-family: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+  background: var(--surface-2); padding: 1px 6px; border-radius: 6px; font-size: .92em;
+}
+.xq-status {
+  margin-top: 12px; font-size: .95rem; background: var(--surface-2);
+  border-radius: 10px; padding: 10px 14px;
+}
+.xq-note { font-size: .92rem; margin-top: 10px; }
+.xq-err { color: var(--danger); font-size: .9rem; margin-top: 8px; }
+.xq-btns { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.xq-btns-center { justify-content: center; }
+.xq-muted { color: var(--muted); }
+.good { color: var(--ok); font-weight: 700; }
+.bad { color: var(--danger); font-weight: 700; }
+.xq-badge-row { display: flex; gap: 8px; margin: -6px 0 12px; }
+.xq-intro { margin-top: 12px; font-size: .93rem; text-align: justify; }
+.xq-empty { color: var(--muted); font-size: .9rem; }
+
+/* 記譜公式 */
+.xq-formula { font-size: 2rem; font-weight: 800; text-align: center; letter-spacing: .28em; margin: 2px 0 16px; }
+.xq-formula .f1, .xq-formula-key b.f1 { color: var(--accent); }
+.xq-formula .f2, .xq-formula-key b.f2 { color: var(--sci); }
+.xq-formula .f3, .xq-formula-key b.f3 { color: var(--math); }
+.xq-formula .f4, .xq-formula-key b.f4 { color: var(--warn); }
+.xq-formula-key li { margin-bottom: 9px; }
+.xq-quiz-q { font-size: 1rem; margin-bottom: 6px; }
+.xq-quiz-q b { color: var(--accent); font-size: 1.2rem; letter-spacing: .1em; }
+.xq-quiz-msg { font-size: .92rem; color: var(--muted); min-height: 1.7em; }
+
+/* 走法清單 */
+.xq-movelist { max-height: 230px; overflow: auto; }
+.xq-movelist-tall { max-height: 320px; }
+table.xq-mv { width: 100%; border-collapse: collapse; font-size: .93rem; }
+table.xq-mv th {
+  width: 34px; color: var(--muted); font-weight: 600; font-size: .8rem;
+  text-align: right; padding: 3px 8px 3px 0;
+}
+table.xq-mv td { padding: 2px 4px; width: 44%; }
+.mv { display: inline-block; padding: 2px 9px; border-radius: 7px; letter-spacing: .04em; }
+.mv.is-click { cursor: pointer; }
+.mv.is-click:hover { background: var(--surface-2); }
+.mv.is-cur { background: var(--accent); color: #fff; }
+
+/* 對戰 */
+.xq-opts { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; font-size: .92rem; }
+.xq-opts label { display: flex; gap: 8px; align-items: center; color: var(--muted); font-weight: 600; }
+.xq-opts select {
+  font-family: inherit; font-size: .92rem; padding: 7px 10px; border-radius: 9px;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+}
+.xq-taken { display: flex; flex-wrap: wrap; gap: 5px; }
+.xq-chip-piece {
+  width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+  background: #fdf3de; border: 1px solid #b98f52; font-weight: 700; font-size: .85rem;
+}
+.xq-check { display: flex; gap: 8px; align-items: center; justify-content: center;
+  font-size: .9rem; color: var(--muted); margin-top: 12px; }
+.xq-textarea {
+  width: 100%; font-size: .95rem; padding: 11px 13px; border-radius: 11px;
+  border: 1.5px solid var(--border); background: var(--surface); color: var(--text);
+  font-family: inherit; resize: vertical;
+}
+.xq-textarea:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
+
+@media (max-width: 640px) {
+  .tab { padding: 7px 12px; font-size: .87rem; }
+  .xq-formula { font-size: 1.6rem; }
 }

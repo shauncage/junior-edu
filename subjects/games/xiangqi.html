@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>中國象棋 — 國中數學．自然教學網</title>
+<link rel="stylesheet" href="../../assets/css/app.css?v=20260917">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../../index.html"><span class="logo">學</span>國中數學．自然</a>
+    <nav class="nav">
+      <a href="../../index.html">首頁</a>
+      <a href="../chemistry/formula.html">化學式翻譯機</a>
+      <a href="../math/quadratic.html">一元二次方程式</a>
+      <a href="xiangqi.html" class="active">中國象棋</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero">
+    <div class="eyebrow">益智 · 象棋 · 從零開始</div>
+    <h1>中國象棋</h1>
+    <p>從「馬走日、象飛田」開始，一路練到看得懂棋譜、打得動對局。五個階段都在同一頁：<strong>認識棋子 → 學會記譜 → 殺法練習 → 打譜猜棋 → 跟電腦對戰</strong>。每一個練習題的答案都是程式實際算過的，不會出錯。</p>
+    <p class="hero-link"><a href="https://zh.wikipedia.org/zh-tw/%E8%B1%A1%E6%A3%8B" target="_blank" rel="noopener noreferrer">延伸閱讀：象棋（維基百科）<span class="ext">↗</span></a>　象棋的雛形可以追到戰國時代的「六博」，現在的棋盤與規則大約在<strong>北宋</strong>定型 —— 楚河漢界指的正是兩千多年前楚漢相爭的那條鴻溝。</p>
+  </section>
+
+  <nav class="tabs" id="tabs">
+    <button class="tab is-on" data-tab="learn">① 認識棋子</button>
+    <button class="tab" data-tab="notation">② 學會記譜</button>
+    <button class="tab" data-tab="drill">③ 殺法練習</button>
+    <button class="tab" data-tab="replay">④ 打譜猜棋</button>
+    <button class="tab" data-tab="play">⑤ 跟電腦對戰</button>
+  </nav>
+
+  <!-- ① 認識棋子 -->
+  <section class="panel is-on" id="panel-learn">
+    <div class="xq-split">
+      <div>
+        <div class="xq-mount" id="learn-board"></div>
+        <p class="xq-cap">綠點就是這種棋子現在能走到的位置；紅圈代表可以吃掉的子。</p>
+      </div>
+      <div>
+        <div class="card">
+          <h2>七種棋子</h2>
+          <div class="chips" id="learn-pieces"></div>
+          <div class="chips-label" style="margin-top:14px">容易搞錯的規則</div>
+          <div class="chips" id="learn-rules"></div>
+        </div>
+        <div class="card" id="learn-info"></div>
+      </div>
+    </div>
+
+    <section class="card" style="margin-top:18px">
+      <h2>先看懂這張棋盤</h2>
+      <div class="grid grid-3">
+        <div>
+          <h3 class="xq-h3">九條直線、十條橫線</h3>
+          <p class="xq-p">棋子走在<strong>線的交叉點</strong>上，不是走在格子裡 —— 這是象棋和西洋棋最大的不同。整盤棋共有 9×10 ＝ 90 個交叉點。</p>
+        </div>
+        <div>
+          <h3 class="xq-h3">楚河漢界</h3>
+          <p class="xq-p">中間那條河是兵、卒、象、相的分界線：<strong>象（相）永遠不能過河</strong>，<strong>兵（卒）過了河才能左右走</strong>。車、馬、炮、將不受影響。</p>
+        </div>
+        <div>
+          <h3 class="xq-h3">九宮</h3>
+          <p class="xq-p">兩端畫著斜線的那九個點叫九宮。<strong>將（帥）和士（仕）一輩子都不能走出去</strong>，所有的攻防最後都是繞著這九個點打轉。</p>
+        </div>
+      </div>
+      <div class="callout">
+        <span class="k">開局要做的三件事：</span>把車走到通路上、把馬跳到有路可走的位置、把炮擺到有用的線上。初學者最常見的毛病是只顧著推兵，等到被攻的時候大子還沒出動。
+      </div>
+    </section>
+  </section>
+
+  <!-- ② 學會記譜 -->
+  <section class="panel" id="panel-notation">
+    <div class="xq-split">
+      <div>
+        <div class="xq-mount" id="nota-board"></div>
+        <p class="xq-cap">這是一盤自由擺弄的棋，紅黑都可以走。每走一步，右邊就會寫出牠的記譜。</p>
+      </div>
+      <div>
+        <div class="card">
+          <h2>四個字看懂一步棋</h2>
+          <div class="xq-formula">
+            <span class="f1">炮</span><span class="f2">二</span><span class="f3">平</span><span class="f4">五</span>
+          </div>
+          <ul class="explain xq-formula-key">
+            <li><b class="f1">第一個字</b>　哪一個棋子（炮、馬、車…）。</li>
+            <li><b class="f2">第二個字</b>　牠現在在第幾條<strong>直線</strong>上。紅方用<strong>國字一～九</strong>、黑方用<strong>阿拉伯數字１～９</strong>，而且都是<strong>從自己的右邊數過來</strong>，所以兩邊的數字方向剛好相反。</li>
+            <li><b class="f3">第三個字</b>　往哪走：<strong>進</strong>（走向對方）、<strong>退</strong>（走回自己）、<strong>平</strong>（左右移動）。</li>
+            <li><b class="f4">第四個字</b>　平是<strong>移到第幾條線</strong>；進退則看棋子種類 —— 車炮兵將直線走，寫<strong>走幾步</strong>；馬相士斜著走，寫<strong>走到第幾條線</strong>。</li>
+          </ul>
+          <div class="callout">
+            <span class="k">同一條線上有兩個一樣的子？</span>那就不寫直線編號，改寫「前」「後」，例如 <strong>前馬進七</strong>。棋盤上下方的數字列就是在提醒你這兩套編號。
+          </div>
+        </div>
+        <div class="card">
+          <h2>考考你</h2>
+          <div class="xq-quiz">
+            <div class="xq-quiz-q">請在棋盤上走出：<b id="quiz-target">—</b></div>
+            <div class="xq-quiz-msg" id="quiz-msg">按「出題」開始。</div>
+            <div class="xq-btns">
+              <button class="btn btn-sm" id="quiz-new">出題</button>
+              <button class="btn btn-sm btn-ghost" id="quiz-show">告訴我答案</button>
+              <button class="btn btn-sm btn-ghost" id="nota-reset">重排棋子</button>
+            </div>
+          </div>
+          <div class="xq-movelist" id="nota-moves"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ③ 殺法練習 -->
+  <section class="panel" id="panel-drill">
+    <div class="card">
+      <h2>選一題</h2>
+      <div class="chips" id="drill-list"></div>
+    </div>
+    <div class="xq-split" style="margin-top:18px">
+      <div>
+        <div class="xq-mount" id="drill-board"></div>
+        <p class="xq-cap">紅方（下方）是你。點一下棋子再點要去的位置就可以走棋。</p>
+      </div>
+      <div>
+        <div class="card" id="drill-info"></div>
+        <div class="card">
+          <div class="xq-status" id="drill-status">選一題開始。</div>
+          <div class="xq-btns">
+            <button class="btn btn-sm btn-ghost" id="drill-retry">重做這一題</button>
+            <button class="btn btn-sm btn-ghost" id="drill-idea">看提示</button>
+            <button class="btn btn-sm btn-ghost" id="drill-answer">看答案</button>
+            <button class="btn btn-sm" id="drill-next">下一題</button>
+          </div>
+          <div class="xq-note" id="drill-note"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ④ 打譜猜棋 -->
+  <section class="panel" id="panel-replay">
+    <div class="card">
+      <h2>選一份棋譜</h2>
+      <div class="chips" id="replay-list"></div>
+      <div class="xq-intro" id="replay-intro"></div>
+    </div>
+    <div class="xq-split" style="margin-top:18px">
+      <div>
+        <div class="xq-mount" id="replay-board"></div>
+        <div class="xq-btns xq-btns-center">
+          <button class="btn btn-sm btn-ghost" id="rp-first">⏮</button>
+          <button class="btn btn-sm btn-ghost" id="rp-prev">◀ 上一手</button>
+          <button class="btn btn-sm" id="rp-next">下一手 ▶</button>
+          <button class="btn btn-sm btn-ghost" id="rp-auto">自動</button>
+          <button class="btn btn-sm btn-ghost" id="rp-last">⏭</button>
+        </div>
+        <label class="xq-check"><input type="checkbox" id="rp-guess"> <b>猜下一手</b>：由你在棋盤上走出棋譜裡的那一步，猜對才前進</label>
+        <div class="xq-status" id="rp-status"></div>
+      </div>
+      <div>
+        <div class="card">
+          <h2>棋譜</h2>
+          <div class="xq-movelist xq-movelist-tall" id="rp-moves"></div>
+        </div>
+        <div class="card">
+          <h2>這一手在做什麼</h2>
+          <div class="xq-note" id="rp-note">按「下一手」開始。</div>
+          <div class="xq-btns">
+            <button class="btn btn-sm btn-ghost" id="rp-takeover">從這裡接手，跟電腦下完</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="card" style="margin-top:18px">
+      <h2>貼上自己的棋譜</h2>
+      <div class="card-sub">從書上或網路上抄來的中文記譜都可以，回合編號、括號註解、全形半形數字都會自動處理。讀不通的話會直接告訴你卡在第幾手。</div>
+      <textarea id="rp-import" class="xq-textarea" rows="3" spellcheck="false" placeholder="例：1. 炮二平五 馬８進７ 2. 傌二進三 車９平８ 3. 俥一平二 馬２進３"></textarea>
+      <div class="xq-btns">
+        <button class="btn btn-sm" id="rp-load">讀取這份棋譜</button>
+        <span class="xq-note" id="rp-import-msg"></span>
+      </div>
+    </section>
+  </section>
+
+  <!-- ⑤ 跟電腦對戰 -->
+  <section class="panel" id="panel-play">
+    <div class="card">
+      <div class="xq-opts">
+        <label>難度
+          <select id="pl-level">
+            <option value="1">新手 — 會漏看，適合第一次下</option>
+            <option value="2" selected>初級 — 會吃你送上門的子</option>
+            <option value="3">中級 — 算得到三、四步</option>
+            <option value="4">高手 — 想久一點，會設陷阱</option>
+          </select>
+        </label>
+        <label>我執
+          <select id="pl-side">
+            <option value="r" selected>紅方（先走）</option>
+            <option value="b">黑方（後走）</option>
+          </select>
+        </label>
+        <button class="btn btn-sm" id="pl-new">開新局</button>
+      </div>
+    </div>
+    <div class="xq-split" style="margin-top:18px">
+      <div>
+        <div class="xq-mount" id="play-board"></div>
+        <div class="xq-status" id="pl-status">按「開新局」開始。</div>
+        <div class="xq-btns xq-btns-center">
+          <button class="btn btn-sm btn-ghost" id="pl-undo">悔棋</button>
+          <button class="btn btn-sm btn-ghost" id="pl-hint">提示一步</button>
+          <button class="btn btn-sm btn-ghost" id="pl-resign">認輸</button>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <h2>吃掉的子</h2>
+          <div class="xq-taken" id="pl-taken"></div>
+        </div>
+        <div class="card">
+          <h2>棋譜</h2>
+          <div class="xq-movelist xq-movelist-tall" id="pl-moves"></div>
+        </div>
+      </div>
+    </div>
+
+    <section class="card" style="margin-top:18px">
+      <h2>初學者最該記住的幾件事</h2>
+      <div class="callout">
+        <span class="k">這裡的勝負是怎麼判的：</span>將死、困斃（輪到你走卻一步都走不出來，象棋算輸，和西洋棋的「和局」不同）、
+        以及連續六十回合沒有吃子判和。比賽規則裡的<strong>長將判負、長捉判負</strong>這一頁沒有實作，
+        所以電腦不會用長將來騙和；真正比賽時這兩條是會判輸的。
+      </div>
+      <ul class="explain">
+        <li><strong>開局先出大子</strong>：車、馬、炮擺好位置，比推兵重要得多。車是最強的子，卻也最常被放在原地一整盤。</li>
+        <li><strong>子力價值心裡有數</strong>：車 ≈ 2 個馬或炮，馬炮差不多，士象各值一個兵多一點。用馬換車是賺，用車換馬是虧。</li>
+        <li><strong>每走一步前先問「他要吃我什麼」</strong>：初學者輸棋，九成是白白送子，不是被算計。</li>
+        <li><strong>士象別亂動</strong>：九宮的防守一旦破了，對方的車炮就長驅直入。所謂「缺士怕雙車、缺象怕炮」。</li>
+        <li><strong>殘局把兵推過河</strong>：過河兵能左右走，逼近九宮時威力接近一個車。</li>
+      </ul>
+    </section>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">國中數學．自然教學網 — 中國象棋。規則與勝負判斷在 <code>assets/js/xiangqi/rules.js</code>，教材與棋譜在 <code>assets/js/data/</code>，都可以自行增修。</div>
+</footer>
+
+<script src="../../assets/js/xiangqi/rules.js?v=20260917"></script>
+<script src="../../assets/js/xiangqi/notation.js?v=20260917"></script>
+<script src="../../assets/js/xiangqi/ai.js?v=20260917"></script>
+<script src="../../assets/js/data/xiangqi-lessons.js?v=20260917"></script>
+<script src="../../assets/js/data/xiangqi-games.js?v=20260917"></script>
+<script src="../../assets/js/ui/xqboard.js?v=20260917"></script>
+<script src="../../assets/js/pages/xiangqi.js?v=20260917"></script>
+</body>
+</html>
